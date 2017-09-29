@@ -1,43 +1,38 @@
-{% use "form_div_layout.html.twig" %}
+{% extends "form_div_layout.html.twig" %}
 
-{%- block form_widget -%}
-    {%- if errors|length > 0 -%}
-
-        {# used if nothing set per field in `WidgetType` under `attr.custom-error-css-class` #}
-        {%- set css_default_error_class = 'default-error-class' -%}
-
-        {# `attr.class` is expected to be defined, even if its value is an empty string #}
-        {%- if attr|length == 0 -%}
-            {%- set attr = attr|merge({'class': ''}) -%}
-        {%- endif -%}
-
-        {# `attr.custom-error-css-class` was set for this form field in the `WidgetType` #}
-        {%- if attr|length > 0 and attr['custom-error-css-class'] is defined -%}
-            {%- set css_error_classes = attr['custom-error-css-class'] -%}
-        {%- else -%}
-            {# `attr` was not empty, but `attr.custom-error-css-class` was not set #}
-            {%- set css_error_classes = css_default_error_class -%}
-        {%- endif -%}
-
-        {# want to keep any existing `attr.class` value, and concat (merge :/) with any set custom error CSS #}
-        {%- set class = [attr['class']]|merge([css_error_classes]) -%}
-        {# `class` is an array of `attr.class` and `attr.custom-error-css-class` at this point #}
-        {# merge to concat the `class` array into a single string, and set as `attr.class` #}
-        {%- set attr = attr|merge({'class': class|join(' ')|trim}) -%}
-
-        {# Now filter out the unwanted `custom-error-css-class` otherwise ends up as an attribute of the form field #}
-        {% set attr = filter_array_by_key(attr, 'custom-error-css-class') %}
-
-        {# or do the same just using twig template #}
-        {#{% set filteredAttrs = [] %}#}
-        {#{% for key,value in attr %}#}
-            {#{% if key != 'custom-error-css-class' %}#}
-                {# `key` has to be wrapped in parens to evaluate, otherwise is literal string 'key' :/ #}
-                {#{% set filteredAttrs = filteredAttrs|merge({(key): value}) %}#}
-            {#{% endif %}#}
-        {#{% endfor %}#}
-        {#{% set attr = filteredAttrs %}#}
-
-    {%- endif -%}
+{% block form_widget_simple -%}
+    {% if errors|length > 0 -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+    {% endif %}
     {{- parent() -}}
-{%- endblock form_widget -%}
+{%- endblock form_widget_simple %}
+
+{% block textarea_widget -%}
+    {% if errors|length > 0 -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock textarea_widget %}
+
+{% block choice_widget_collapsed -%}
+    {% if errors|length > 0 -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock choice_widget_collapsed %}
+
+{% block checkbox_widget -%}
+    {% if errors|length > 0 -%}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock checkbox_widget %}
+
+{% block radio_widget -%}
+    {% if 'radio-inline' not in parent_label_class %}
+        {% if errors|length > 0 -%}
+            {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+        {% endif %}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock radio_widget %}
