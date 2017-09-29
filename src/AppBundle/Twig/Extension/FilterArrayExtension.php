@@ -16,9 +16,6 @@ class FilterArrayExtension extends \Twig_Extension
         return array_filter(
             $array,
             function ($k) use ($key) {
-                dump('k');
-                dump($k);
-                dump($key);
                 return $k !== $key;
             },
             ARRAY_FILTER_USE_KEY
