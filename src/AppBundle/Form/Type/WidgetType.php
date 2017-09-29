@@ -17,23 +17,11 @@ class WidgetType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class'                  => 'a',
-                    // this will only show if there are errors on the form
-                    // but allows you to customise which class to add
-                    // when there are errors
-                    'custom-error-css-class' => 'b',
+                    'class' => 'a',
                 ]
             ])
             // another form field with no defaults, should not be impacted at all
-            ->add('another', TextareaType::class, [
-                'attr' => [
-                    'class'                  => 'a',
-                    // this will only show if there are errors on the form
-                    // but allows you to customise which class to add
-                    // when there are errors
-                    'custom-error-css-class' => 'b c',
-                ]
-            ])
+            ->add('another', TextareaType::class)
             ->add('submit', SubmitType::class)
         ;
     }
