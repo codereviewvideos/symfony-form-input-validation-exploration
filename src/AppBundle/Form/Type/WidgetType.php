@@ -18,10 +18,16 @@ class WidgetType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => [
                     'class' => 'a',
+                    'class_for_errors' => 'error'
                 ]
             ])
             // another form field with no defaults, should not be impacted at all
-            ->add('another', TextareaType::class)
+            ->add('another', TextareaType::class, [
+                'attr' => [
+                    'other' => 'thing',
+                    'class_for_errors' => 'different-error'
+                ]
+            ])
             ->add('submit', SubmitType::class)
         ;
     }

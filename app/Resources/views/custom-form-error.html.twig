@@ -2,28 +2,29 @@
 
 {% block form_widget_simple -%}
     {% if errors|length > 0 -%}
-        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' ' ~ (attr.class_for_errors|default(' error')))|trim}) %}
     {% endif %}
     {{- parent() -}}
 {%- endblock form_widget_simple %}
 
 {% block textarea_widget -%}
     {% if errors|length > 0 -%}
-        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+        {#{% set attr = attr|merge({class: (attr.class|default('') ~ ' ' ~ (attr.class_for_errors|default(' error')))|trim}) %}#}
+        {% set attr = merge_errors_with_custom_error_css(attr) %}
     {% endif %}
     {{- parent() -}}
 {%- endblock textarea_widget %}
 
 {% block choice_widget_collapsed -%}
     {% if errors|length > 0 -%}
-        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' ' ~ (attr.class_for_errors|default(' error')))|trim}) %}
     {% endif %}
     {{- parent() -}}
 {%- endblock choice_widget_collapsed %}
 
 {% block checkbox_widget -%}
     {% if errors|length > 0 -%}
-        {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' ' ~ (attr.class_for_errors|default(' error')))|trim}) %}
     {% endif %}
     {{- parent() -}}
 {%- endblock checkbox_widget %}
@@ -31,7 +32,7 @@
 {% block radio_widget -%}
     {% if 'radio-inline' not in parent_label_class %}
         {% if errors|length > 0 -%}
-            {% set attr = attr|merge({class: (attr.class|default('') ~ ' error')|trim}) %}
+            {% set attr = attr|merge({class: (attr.class|default('') ~ ' ' ~ (attr.class_for_errors|default(' error')))|trim}) %}
         {% endif %}
     {% endif %}
     {{- parent() -}}
