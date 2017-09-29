@@ -26,7 +26,6 @@ class DefaultController extends Controller
 
         if ($form->isSubmitted() && false === $form->isValid()) {
             dump('INVALID');
-            dump($form);
         }
 
         return $this->render('default/index.html.twig', [
