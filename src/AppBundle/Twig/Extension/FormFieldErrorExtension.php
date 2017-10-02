@@ -21,8 +21,8 @@ class FormFieldErrorExtension extends \Twig_Extension
             $attrs['class'] = '';
         }
 
-        if (isset($attrs['class_for_errors'])) {
-            $attrs['class'] .= $attrs['class_for_errors'];
+        if (isset($attrs['data-custom-error-css-class'])) {
+            $attrs['class'] .= sprintf(' %s', $attrs['data-custom-error-css-class']);
         }
 
         return $attrs;

@@ -37,5 +37,5 @@ services:
 
     # Extra service config should not be needed in Symfony 3.3+
 #    crv.twig.extension.filter_array:
-#        class: AppBundle\Twig\Extension\FilterArrayExtension
+#        class: AppBundle\Twig\Extension\FormFieldErrorExtension
 #        tags: ['twig.extension']
